@@ -1,16 +1,19 @@
 import random
 
-def aplicar_desconto(valor):
-    sorteio = random.randint(1, 100)
-    if sorteio <= 30:
-        desconto = 0.10
-    elif sorteio <= 70:
-        desconto = 0.25
-    else:
-        desconto = 0.50
-    valor_final = valor * (1 - desconto)
-    return f'{valor_final:,.2f}'.replace('.', ',')  # formata com vírgula
+# Gerar os 1000 valores
+precos = [random.randint(100, 500) for _ in range(1000)]
 
-# Exemplo:
-valor_original = 100.0
-print("Valor com desconto aplicado:", aplicar_desconto(valor_original))
+def aplicar_descontos(precos, *args):
+    total = 0
+    for preco in precos:
+        novo_preco = preco
+        for desc in args:
+            if isinstance(desc, float) and 0 < desc < 1:
+                novo_preco *= (1 - desc)
+            elif isinstance(desc, int) or isinstance(desc, float):
+                novo_preco -= desc
+        total += max(novo_preco, 0)
+    return f"Total a pagar: R$ {total:,.2f}".replace('.', ',')  # vírgula como separador decimal
+
+# Exemplo de uso
+print(aplicar_descontos(precos, 0.10, 15))  # 10% de desconto + 15 reais fixo
