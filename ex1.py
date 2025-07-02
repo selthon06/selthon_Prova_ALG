@@ -1,13 +1,29 @@
-import random
+def criar_dicionario(admin, operacional, tecnico):
+    return {
+        'Administrativo': tuple(admin),
+        'Operacional': tuple(operacional),
+        'Técnico': tuple(tecnico)
+    }
 
-setores = {
-    'Administrativo': ['Ana', 'João', 'Marcos'],
-    'Operacional': ['Carlos', 'Bruna', 'Rita'],
-    'Técnico': ['Lucas', 'Fernanda', 'Pedro']
-}
+def setores_com_mais_de_dois(dicionario):
+    for setor, nomes in dicionario.items():
+        if len(nomes) > 2:
+            print(f"{setor}: {len(nomes)} participantes")
 
-setor_sorteado = random.choice(list(setores.keys()))
-funcionario_sorteado = random.choice(setores[setor_sorteado])
+def exibir_nomes_ordenados(dicionario):
+    todos_nomes = []
+    for nomes in dicionario.values():
+        todos_nomes.extend(nomes)
+    todos_nomes.sort()
+    print("Nomes em ordem alfabética:")
+    for nome in todos_nomes:
+        print(nome)
 
-print(f'Setor sorteado: {setor_sorteado}')
-print(f'Funcionário sorteado: {funcionario_sorteado}')
+# Exemplo de uso
+admin = ['Ana', 'Carlos', 'Beatriz']
+operacional = ['João', 'Rita']
+tecnico = ['Lucas', 'Tiago', 'Fernanda', 'Rafael']
+
+d = criar_dicionario(admin, operacional, tecnico)
+setores_com_mais_de_dois(d)
+exibir_nomes_ordenados(d)
